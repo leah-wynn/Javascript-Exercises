@@ -28,7 +28,7 @@ describe ("when determining triangle type", function(){
 	});
 
 	it ("should return error if triangle does not exist", function(){
-		expect(type(3,4,10)).toThrowError("Triangle cannot exist");
+		expect(function () {type(3,4,10); }).toThrowError(Error);
 	});
 
 	it ("should print Equilateral if triangle type is equilateral", function(){

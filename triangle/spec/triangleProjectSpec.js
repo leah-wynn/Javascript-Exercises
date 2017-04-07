@@ -6,6 +6,13 @@ describe ("when determining triangle type", function(){
 		expect(isTriangle(1,2,3)).toEqual(true);
 	});
 
+	it ("should return true if all side measurements are greater than zero", function (){
+		expect(sideLengthPass(0.002,0.5,3)).toEqual(true);
+	})
+	it ("should return false if any side measurements are less than or equal to zero", function (){
+		expect(sideLengthPass(0,2,5)).toEqual(false);
+	});
+
 	it ("should return true if all sides are equal", function() {
 		expect(isEquilateral(1,1,1)).toEqual(true);
 	})
@@ -28,18 +35,24 @@ describe ("when determining triangle type", function(){
 	});
 
 	it ("should return error if triangle does not exist", function(){
-		expect(function () {type(3,4,10); }).toThrowError(Error);
+		expect(function () {triangleType(3,4,10); }).toThrowError("Not a triangle");
 	});
 
 	it ("should print Equilateral if triangle type is equilateral", function(){
-		expect(type(2,2,2)).toEqual("Equilateral");
+		expect(triangleType(2,2,2)).toEqual("Equilateral");
 	});
 
 	it ("should print Isosceles if triangle type is isosceles", function(){
-		expect(type(2,2,3)).toEqual("Isosceles");
+		expect(triangleType(2,2,3)).toEqual("Isosceles");
 	});
 
 	it ("should print Scalene if triangle type is scalene", function(){
-		expect(type(1,2,3)).toEqual("Scalene");
+		expect(triangleType(1,2,3)).toEqual("Scalene");
+	});
+	it ("should throw error if the value of any side is less than or equal to zero", function(){
+		expect(function() {triangleType(0,1,2); }).toThrowError("Triangle must have three sides");
+	});
+	it ("should throw error if the triangle type can not be determined", function (){
+		expect(function(){triangleType("10",10,"10"); }).toThrowError("Could not determine triangle type");
 	});
 })

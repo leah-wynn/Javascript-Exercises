@@ -39,7 +39,7 @@ describe ("when determining triangle type", function(){
 	});
 
 	it ("should print Equilateral if triangle type is equilateral", function(){
-		expect(triangleType(2,2,2)).toEqual("Equilateral");
+		expect(triangleType("10","10","10")).toEqual("Equilateral");
 	});
 
 	it ("should print Isosceles if triangle type is isosceles", function(){
@@ -54,5 +54,11 @@ describe ("when determining triangle type", function(){
 	});
 	it ("should throw error if the triangle type can not be determined", function (){
 		expect(function(){triangleType("10",10,"10"); }).toThrowError("Could not determine triangle type");
+	});
+	it ("should throw error if argument data type is not integer", function (){
+		expect(function(){triangleType("bob", "20", 7); }).toThrowError(Error);
+	})
+	it ("should parse string arguments to integer", function(){
+		expect(triangleType("2",2,"2")).toEqual("Equilateral");
 	});
 })

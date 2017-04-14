@@ -1,3 +1,7 @@
+function parseArgs(side1, side2, side3) {
+   return triangleType(parseInt(side1, 10), parseInt(side2, 10), parseInt(side3, 10));
+}
+
 function isTriangle(side1,side2,side3) {
    return side1 + side2  >= side3 && side2 + side3 >= side1 && side1 + side3 >= side2;
 }
@@ -19,6 +23,7 @@ function isScalene(side1,side2,side3) {
 }
 
 function triangleType(side1, side2, side3) {
+  parseArgs(side1,side2,side3);
   if (sideLengthPass(side1,side2,side3) === false) {
   throw new Error ("Triangle must have three sides")
   }

@@ -1,18 +1,34 @@
-function toRoman(arabic) {  
-  var romanNum = "";
-  var num = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-  var symbol = ["M", "CM","D","CD","C", "XC", "L", "XL", "X","IX","V","IV","I"];
-  if (arabic <= 0){
-  	throw new Error("Number must be greater than zero!");
+function toRoman(decimal) {
+  var romanNumeralMap = new Map([
+    [1000, "M"],
+    [900, "CM"],
+    [500, "D"],
+    [400, "CD"],
+    [100, "C"],
+    [90, "XC"],
+    [50, "L"],
+    [40, "XL"],
+    [10, "X"],
+    [9, "IX"],
+    [5, "V"],
+    [4, "IV"],
+    [1, "I"]
+  ]);
+  function validateInput(input) {
+    return input > 0 && input < 4000;
   }
-  if (arabic > 3999){
-  	throw new Error("Number must be less than 3999!")
-  }
-  for (var i = 0;i<=num.length;i++) {
-    while (arabic%num[i] < arabic) {   
-      romanNum += symbol[i];
-      arabic -= num[i];
+  function determineRomanNumeral(input) {
+    var output = "";
+    for (var key of romanNumeralMap.keys()) {
+      while (input % key < input) {
+        output += romanNumeralMap.get(key);
+        input -= key;
+      }
     }
+    return output;
   }
-  return romanNum;
+  if (validateInput(decimal)) {
+    return determineRomanNumeral(decimal);
+  }
+  throw new Error("The input must be greater than zero and less than 4000");
 }

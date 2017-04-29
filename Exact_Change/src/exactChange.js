@@ -1,5 +1,5 @@
 
-const currency = 
+var currency = 
 [["ONE HUNDRED", 100.00],
   ["TWENTY", 20.00],
   ["TEN", 10.00],
@@ -27,16 +27,13 @@ function getdrawerTotal(drawer) {
 
 
 function checkCashRegister(price, tender, drawer){
-  // Variables
   var output = [];
   var drawerMap = new Map(drawer);
 
-  // Computables
   var initialChangeDue = roundTo(tender - price);
   var drawerTotal = roundTo(getdrawerTotal(drawer));
   var netDifference = roundTo(drawerTotal - initialChangeDue);
 
-  // Validation
   if (netDifference === 0) {
     return "Closed";
   }
@@ -54,8 +51,9 @@ function checkCashRegister(price, tender, drawer){
       drawerValue -= currencyValues;
       amount += currencyValues;
     }
+
     if (amount > 0) {
-      acc.push(currencyKeys, amount);
+      acc.push([currencyKeys, amount]);
     }
     return acc;
   }, []);

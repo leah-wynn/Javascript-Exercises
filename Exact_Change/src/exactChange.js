@@ -1,5 +1,5 @@
 
-var currency = 
+var denomination = 
 [["ONE HUNDRED", 100.00],
   ["TWENTY", 20.00],
   ["TEN", 10.00],
@@ -31,17 +31,23 @@ function checkCashRegister(price, tender, drawer){
   var drawerMap = new Map(drawer);
 
   var initialChangeDue = roundTo(tender - price);
-  var drawerTotal = roundTo(getdrawerTotal(drawer));
-  var netDifference = roundTo(drawerTotal - initialChangeDue);
+  var totalInDrawer = roundTo(getdrawerTotal(drawer));
+  var netDifference = roundTo(totalInDrawer - initialChangeDue);
 
-  if (netDifference === 0) {
+  if (drawerClosed()) {
     return "Closed";
   }
-  if (netDifference < 0) {
+  if (insufficientFunds()) {
     return "Insufficient Funds";
   }
+  function drawerClosed() {
+   return netDifference === 0;
+  }
+  function insufficientFunds() {
+    return netDifference < 0;
+  }
 
-  var exact_change = currency.reduce(function (acc, element) {
+  var exact_change = denomination.reduce(function (acc, element) {
     var currencyKeys = element[0];
     var currencyValues = element[1];
     var drawerValue = drawerMap.get(currencyKeys);
